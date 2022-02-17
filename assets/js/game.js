@@ -80,7 +80,6 @@ var startGame = function() {
     break;
     }
 }
-endGame();
 };
 
 //function to end the entire game
@@ -102,8 +101,9 @@ if (playAgainConfirm) {
 else {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
 }
-// //start the game
+
 startGame();
+endGame();
 
 
 
