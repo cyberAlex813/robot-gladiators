@@ -17,6 +17,9 @@ var enemyAttack = 12;
 var fight = function(enemyName) {
     while (playerHealth > 0 && enemyHealth > 0) {
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+    console.log(Math.PI);
+    console.log(Math.round(8.1));
+    console.log(Math.sqrt(30));
 
     //if player skips turn, then stop the loop
     if (promptFight === "skip" || promptFight === "SKIP") {
@@ -24,14 +27,14 @@ var fight = function(enemyName) {
         // if yes, leave fight
         if (confirmSkip) {
         window.alert(playerName + ' has decided to skip this fight. Goodbye!');
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("playerMoney" , playerMoney)
         break;
         }
     }
-
     //enemy health section
-    enemyHealth = enemyHealth - playerAttack;
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(
         playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
 );
@@ -47,7 +50,8 @@ var fight = function(enemyName) {
     }
 
     // players health section
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(
         enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
     );
@@ -60,6 +64,14 @@ var fight = function(enemyName) {
     }
     }
 };
+
+//function to generate a dandom number value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return value;
+};
+
 //function to start a new game
 var startGame = function() {
     playerHealth = 100;
@@ -71,7 +83,7 @@ var startGame = function() {
         window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
         //pick new enemy
         var pickedEnemyName = enemyNames[i];
-        enemyHealth = 50;
+        enemyHealth = randomNumber(40, 60);
         fight(pickedEnemyName);
         // if player is alive and not the last enemy left
         if (playerHealth > 0 && i < enemyNames.length - 1) {
